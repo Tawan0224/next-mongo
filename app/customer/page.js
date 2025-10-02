@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { DataGrid } from "@mui/x-data-grid";
+import Link from "next/link";
 
 export default function CustomerPage() {
   const API_BASE = process.env.NEXT_PUBLIC_API_URL;
@@ -37,11 +38,27 @@ export default function CustomerPage() {
     {
       field: 'actions',
       headerName: 'Actions',
-      width: 120,
+      width: 250,
       renderCell: (params) => (
-        <div>
-          <button onClick={() => startEditMode(params.row)} className="mr-2 text-blue-600">📝</button>
-          <button onClick={() => deleteCustomer(params.row)} className="text-red-600">🗑️</button>
+        <div className="flex gap-2">
+          <Link
+            href={`/customer/${params.row._id}`}
+            className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm font-medium"
+          >
+            View
+          </Link>
+          <button 
+            onClick={() => startEditMode(params.row)} 
+            className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm font-medium"
+          >
+            Edit
+          </button>
+          <button 
+            onClick={() => deleteCustomer(params.row)} 
+            className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm font-medium"
+          >
+            Delete
+          </button>
         </div>
       ),
     },
